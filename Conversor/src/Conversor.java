@@ -1,8 +1,9 @@
 import java.io.EOFException;
 import java.io.File;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
-import javax.swing.text.html.CSS;
 
 public class Conversor {
     private File directory;
@@ -11,7 +12,7 @@ public class Conversor {
     private File conversion;
     private FileExtension originalExtension;
     private FileExtension conversionExtension;
-    private List<List<String>> content;
+    private List<Map<String,String>> content;
 
     public Conversor() {
     }
@@ -37,7 +38,7 @@ public class Conversor {
         return this.files;
     }
 
-    private void setFiles() {
+    public void setFiles() {
         this.files = directory.listFiles();
     }
 
@@ -62,7 +63,7 @@ public class Conversor {
         return this.conversion;
     }
 
-    public void setConversionName(File conversion) throws Exception {
+    public void setConversion(File conversion) throws Exception {
         if (!conversion.exists()) {
             if (conversion.getParent().equals(original.getParent())) {
                 this.conversion = conversion;
@@ -99,23 +100,17 @@ public class Conversor {
         this.conversionExtension = conversionExtension;
     }
 
-    public List<List<String>> getContent() {
-        switch (originalExtension) {
-            case FileExtension.CSV -> return Csv.extractContent(original);
-            case FileExtension.JSON -> return Json.extractContent(original);
-            case FileExtension.XML -> return Xml.extractContent(original);
-                
-                
-        
-            default -> ;
-        }
-        
-        
+    public List<Map<String,String>> getContent() {
         return this.content;
     }
 
-    public void setContent(List<List<String>> content) {
-        this.content = content;
+    public void setContent() throws Exception{
+        switch (originalExtension) {
+            case FileExtension.CSV -> this.content = Csv.extractContent(original);
+            case FileExtension.JSON -> this.content = Json.extractContent(original);
+            case FileExtension.XML -> this.content = Xml.extractContent(original);
+            default -> throw new Exception("Extensión no reconocida.");
+        }
     }
 
 }
