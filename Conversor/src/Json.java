@@ -77,8 +77,8 @@ public class Json {
 }
 
 public static void main(String[] args) {
-    File original = new File("Docs\\coches.json");
-    File conversion = new File("Docs\\cochesCopy.json");
+    File original = new File("Docs/coches.json");
+    File conversion = new File("Docs/cochesCopy.json");
     try {
         List<Map<String, String>> content = Json.extractContent(original);
         Json.writeWithFormat(content, conversion);
