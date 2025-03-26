@@ -69,7 +69,7 @@ public class Json {
             }
             bw.write("]\n");
         } catch (Exception e) {
-            System.err.println(e.getMessage());
+            System.err.println("Error: "+e.getMessage());
         }
         return true;
     }
@@ -91,6 +91,6 @@ public static void main(String[] args) {
         System.out.println("Size List: "+content.size());
 
     } catch (Exception e) {
-        System.err.println(e.getMessage());
+        System.err.println("Error: "+e.getMessage());
     }
 }
