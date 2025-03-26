@@ -17,11 +17,11 @@ public class Conversor {
     public Conversor() {
     }
 
-    public File getFolder() {
+    public File getDirectory() {
         return this.directory;
     }
 
-    public void setFolder(File folder) throws Exception {
+    public void setDirectory(File folder) throws Exception {
         if (folder.exists()) {
             if (folder.isDirectory()) {
                 this.directory = folder;

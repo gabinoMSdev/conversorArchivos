@@ -9,7 +9,7 @@ public class Csv {
         
     }
 
-    public boolean writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
+    public static boolean writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
         
     }
 

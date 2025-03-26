@@ -20,14 +20,14 @@ public class Json {
         try (BufferedReader br = new BufferedReader(new FileReader(file))) {
             int counter = 0;
             while ((line = br.readLine()) != null) {
-                String[] cleanLine = line.split("(?=})|[^\\w.]+");
-                System.out.println(Arrays.toString(cleanLine));
+                String[] cleanLine = line.trim().replaceAll("\"", "").split("[,:]");
+                System.out.println(Arrays.toString(cleanLine));/////
                 if (cleanLine != null) {
                     if (cleanLine[0].equals("}")) {
                         counter++;
                         content.add(new HashMap<String, String>());
-                    } else if (cleanLine.length == 2) {
-                        content.get(counter).put(cleanLine[0], cleanLine[1]);
+                    } else {
+                        content.get(counter).put(cleanLine[0].trim(), cleanLine[1].trim());
                     }
                 }
             }
@@ -38,20 +38,15 @@ public class Json {
         return content;
     }
 
-    /*
-     * public boolean writeWithFormat(List<Map<String, String>> content, File
-     * conversion) throws IOException {
-     * 
-     * }
-     */
+    public boolean writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
+    }
 
 }
 
 public static void main(String[] args) {
-    String frase1 = "[";
+    String frase1 = "\"juan\\\"juan";
     String frase2 = " {";
-    String frase3 = "\"Marca\": \"Toyota\",";
-    String[] palabras1 = frase3.split("(?=})|[^\\w.]+");
+    String[] palabras1 = frase1.split("[^\\w.}]|(?<=\\D)\\.(?=\\D)");
     System.out.println(Arrays.toString(palabras1));
     System.out.println(palabras1.length);
 
@@ -61,7 +56,6 @@ public static void main(String[] args) {
         for (int i = 0; i < content.size(); i++) {
             for (Entry<String, String> entry : content.get(i).entrySet()) {
                 System.out.println(entry.getKey() + "\t" + entry.getValue());
-                System.out.println(i);
             }
         }
     } catch (Exception e) {
