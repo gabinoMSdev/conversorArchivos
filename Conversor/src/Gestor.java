@@ -1,57 +1,77 @@
 
+import java.io.File;
 import java.util.Scanner;
 
 public class Gestor {
-    private final Scanner sc = new Scanner(System.in);
-    private boolean flag = true;
-    private Conversor conversor;
+    private static final Scanner sc = new Scanner(System.in);
+    private static Conversor conversor;
 
-    public Gestor(){
+    public Gestor() {
         this.conversor = new Conversor();
     }
 
-    public void menu() {
+    public static void menu() {
+        String menu = "\n=== CONVERSOR ==="+
+            "\n1. Seleccionar carpeta."+
+            "\n2. Seleccionar archivo."+
+            "\n3. Convertir archivo."+
+            "\n0. Salir.";
+        int opcion;
+        boolean flag = true;
         while (flag) {
-            System.out.println("\n=== MENÚ PRINCIPAL ===");
-            System.out.println("1. Seleccionar carpeta");
-            System.out.println("2. Seleccionar archivo");
-            System.out.println("3. Convertir archivo");
-            System.out.println("0. Salir");
+            System.out.println(menu);
             System.out.print("Seleccione opción: ");
-
-            switch (sc.nextLine()) {
-
-                /*
-                 * case "1" -> ;
-                 * case "2" -> ;
-                 */
-                case "3" -> submenu();
-                case "0" -> flag = false;
+            opcion = Integer.parseInt(sc.nextLine());
+            switch (opcion) {
+                case 1 -> ;
+                case 2 -> ;
+                case 3 -> ;
+                case 0 -> {System.out.println("Saliendo"); flag = false;}
                 default -> System.out.println("Opción no válida");
             }
         }
     }
 
-    private void menuConversion() {
-        System.out.println("\n=== SUBMENÚ CONVERSIÓN ===");
-        System.out.println("1. CSV");
-        System.out.println("2. JSON");
-        System.out.println("3. XML");
-        System.out.println("4. Volver al menú principal");
-        System.out.print("\nSeleccione formato de conversión: ");
-
-        switch (sc.nextLine()) {
-            /*
-             * case "1" -> ;
-             * case "2" -> ;
-             * case "3" -> ;
-             */
-            case "4" -> menu();
-            default -> System.out.println("Opción no válida");
+    public static void menuConversion() {
+        String menu = "\n=== FORMATO ===" +
+                "\n1. CSV" +
+                "\n2. JSON" +
+                "\n3. XML";
+        System.out.println(menu);
+        System.out.print("Seleccione opción: ");
+        int opcion = Integer.parseInt(sc.nextLine());
+        boolean flag = true;
+        switch (opcion) {
+            case 1 -> conversor.setconversionExtension(FileExtension.CSV);
+            case 2 -> conversor.setconversionExtension(FileExtension.CSV);
+            case 3 -> conversor.setconversionExtension(FileExtension.CSV);
+            default -> {
+                System.out.println("Opción no válida");
+                flag = false;
+            }
+        }
+        if (flag) {
+            System.out.print("Nombre del archivo destino: ");
+            String name = sc.nextLine();
+            String path = conversor.getDirectory().getPath()+name+conversor.getConversionExtension();
+            try {
+                conversor.setConversion(new File(path));
+                
+            } catch (Exception e) {
+                System.err.println("Error: "+e.getMessage());
+            }
         }
     }
 
-    public void update(){
+    public static void conversorName(){
+
+    }
+
+    public static void conversion(){
         
+    }
+
+    public static String info(){
+        return conversor
     }
 }

@@ -15,6 +15,11 @@ public class Conversor {
     private List<Map<String,String>> content;
 
     public Conversor() {
+        directory = null;
+        files = null;
+        original = null;
+        conversion = null;
+
     }
 
     public File getDirectory() {
@@ -26,6 +31,8 @@ public class Conversor {
             if (folder.isDirectory()) {
                 this.directory = folder;
                 setFiles();
+                original = null;
+                content = null;
             } else {
                 throw new Exception("No es un directorio.");
             }
@@ -52,6 +59,7 @@ public class Conversor {
             if (Arrays.asList(files).contains(original)) {
                 this.original = original;
                 setOriginalExtension();
+                setContent();
             } else {
                 throw new Exception("Archivo no encontrado en directorio de búsqueda.");
             }
