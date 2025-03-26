@@ -4,6 +4,11 @@ import java.util.Scanner;
 public class Gestor {
     private final Scanner sc = new Scanner(System.in);
     private boolean flag = true;
+    private Conversor conversor;
+
+    public Gestor(){
+        this.conversor = new Conversor();
+    }
 
     public void menu() {
         while (flag) {
@@ -27,7 +32,7 @@ public class Gestor {
         }
     }
 
-    private void submenu() {
+    private void menuConversion() {
         System.out.println("\n=== SUBMENÚ CONVERSIÓN ===");
         System.out.println("1. CSV");
         System.out.println("2. JSON");
@@ -44,5 +49,9 @@ public class Gestor {
             case "4" -> menu();
             default -> System.out.println("Opción no válida");
         }
+    }
+
+    public void update(){
+        
     }
 }
