@@ -34,7 +34,7 @@ public class Gestor {
         System.out.println("3. XML");
         System.out.println("4. Volver al menú principal");
         System.out.print("\nSeleccione formato de conversión: ");
-
+      
         switch (sc.nextLine()) {
             /*
              * case "1" -> ;
@@ -45,4 +45,3 @@ public class Gestor {
             default -> System.out.println("Opción no válida");
         }
     }
-}
