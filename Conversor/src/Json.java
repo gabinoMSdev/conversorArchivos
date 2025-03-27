@@ -74,7 +74,7 @@ public class Json {
         return true;
     }
 
-}
+
 
 public static void main(String[] args) {
     File original = new File("Docs/coches.json");
@@ -93,4 +93,5 @@ public static void main(String[] args) {
     } catch (Exception e) {
         System.err.println("Error: "+e.getMessage());
     }
+}
 }
