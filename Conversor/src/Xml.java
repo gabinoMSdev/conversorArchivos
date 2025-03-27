@@ -16,12 +16,13 @@ public class Xml {
         try (BufferedReader br = new BufferedReader(new FileReader(original))) {
             Map<String, String> coche = null;
             String etiqueta = null;
-            StringBuilder valor = new StringBuilder();
+            //StringBuilder valor = new StringBuilder(); Mas eficiente que el string normal y es buena practica en este caso usarlo
+            String valor = "";
             boolean interior = false;
 
             String linea;
             while ((linea = br.readLine()) != null) {
-                linea = linea.trim();
+                linea = linea.trim(); 
                 
                 if (linea.startsWith("<coche>")) {
                     coche = new LinkedHashMap<>();
@@ -42,7 +43,8 @@ public class Xml {
                     etiqueta = null;
                 }
                 else if (etiqueta != null && coche != null) {
-                    valor.append(linea);
+                    //valor.append(linea); lo mismo que += pero para StringBuilder
+                    valor += linea;
                 }
             }
         } catch (Exception e) {
