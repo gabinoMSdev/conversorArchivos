@@ -177,6 +177,5 @@ public class Gestor {
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
-
     }
 }
