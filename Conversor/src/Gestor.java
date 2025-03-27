@@ -38,45 +38,50 @@ public class Gestor {
     }
 
     public void menuConversion() {
-        String menu = "\n********** FORMATO **********" +
-                "\n1. CSV" +
-                "\n2. JSON" +
-                "\n3. XML";
-        System.out.println(menu);
-        System.out.print("\nSeleccione opción: ");
-        int opcion = Integer.parseInt(sc.nextLine());
-        boolean flag = true;
-        switch (opcion) {
-            case 1 -> conversor.setconversionExtension(FileExtension.CSV);
-            case 2 -> conversor.setconversionExtension(FileExtension.JSON);
-            case 3 -> conversor.setconversionExtension(FileExtension.XML);
-            default -> {
-                System.out.println("Opción no válida");
-                conversor.setconversionExtension(FileExtension.OTRO);
-                flag = false;
+        if (conversor.getOriginal() != null) {
+            String menu = "\n********** FORMATO **********" +
+                    "\n1. CSV" +
+                    "\n2. JSON" +
+                    "\n3. XML";
+            System.out.println(menu);
+            System.out.print("\nSeleccione opción: ");
+            int opcion = Integer.parseInt(sc.nextLine());
+            boolean flag = true;
+            switch (opcion) {
+                case 1 -> conversor.setconversionExtension(FileExtension.CSV);
+                case 2 -> conversor.setconversionExtension(FileExtension.JSON);
+                case 3 -> conversor.setconversionExtension(FileExtension.XML);
+                default -> {
+                    System.out.println("Opción no válida");
+                    conversor.setconversionExtension(FileExtension.OTRO);
+                    flag = false;
+                }
             }
-        }
-        if (flag) {
-            System.out.print("Nombre del archivo destino: ");
-            String name = sc.nextLine();
-            String path = conversor.getDirectory().getPath() + "/"+ name + fileExtensionToText();
-            try {
-                conversor.setConversion(new File(path));
-                convertir();
-            } catch (Exception e) {
-                System.err.println("Error: " + e.getMessage());
+            if (flag) {
+                System.out.print("Nombre del archivo destino: ");
+                String name = sc.nextLine();
+                String path = conversor.getDirectory().getPath() + "/" + name + fileExtensionToText();
+                try {
+                    conversor.setConversion(new File(path));
+                    convertir();
+                } catch (Exception e) {
+                    System.err.println("Error: " + e.getMessage());
+                }
             }
+        }else{
+            System.out.println("\nSelecciona primero archivo a convertir.");
         }
+
     }
 
-    public String fileExtensionToText(){
+    public String fileExtensionToText() {
         if (conversor.getConversionExtension() == FileExtension.CSV) {
             return ".csv";
-        }else if (conversor.getConversionExtension() == FileExtension.JSON) {
+        } else if (conversor.getConversionExtension() == FileExtension.JSON) {
             return ".json";
-        }else if (conversor.getConversionExtension() == FileExtension.XML) {
+        } else if (conversor.getConversionExtension() == FileExtension.XML) {
             return ".xml";
-        }else{
+        } else {
             return ".error";
         }
     }
@@ -105,7 +110,7 @@ public class Gestor {
         String info = "";
         if (conversor.getDirectory() != null) {
             info += "Directorio: " + conversor.getDirectory().getPath() + "\n";
-            info += "\nFicheros en directorio:" + listarDirectorios()+"\n";
+            info += "\nFicheros en directorio:" + listarDirectorios() + "\n";
             if (conversor.getOriginal() != null) {
                 info += "\nFichero para convertir: " + conversor.getOriginal().getPath();
             } else {

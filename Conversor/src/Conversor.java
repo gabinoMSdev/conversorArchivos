@@ -99,7 +99,7 @@ public class Conversor {
         }else if (original.getPath().endsWith(".json")) {
             this.originalExtension = FileExtension.JSON;
         }else if (original.getPath().endsWith(".xml")) {
-            this.originalExtension = FileExtension.JSON;
+            this.originalExtension = FileExtension.XML;
         }else{
             throw new Exception("Extensión no reconocida.");
         }
