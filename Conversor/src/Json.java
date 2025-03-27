@@ -35,7 +35,7 @@ public class Json {
         return content;
     }
 
-    public static boolean writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
+    public static void writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
             bw.write("[\n");
@@ -67,7 +67,6 @@ public class Json {
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
-        return true;
     }
 
     public static void main(String[] args) {

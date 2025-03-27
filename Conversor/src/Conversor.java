@@ -19,6 +19,9 @@ public class Conversor {
         files = null;
         original = null;
         conversion = null;
+        originalExtension = FileExtension.OTRO;
+        conversionExtension = FileExtension.OTRO;
+
 
     }
 

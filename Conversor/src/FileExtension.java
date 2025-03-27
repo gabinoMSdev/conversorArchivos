@@ -1,3 +1,3 @@
 public enum FileExtension {
-    CSV, JSON, XML
+    CSV, JSON, XML, OTRO
 }
