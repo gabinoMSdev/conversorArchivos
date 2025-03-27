@@ -67,7 +67,7 @@ public class Conversor {
                 throw new Exception("Archivo no encontrado en directorio de búsqueda.");
             }
         } else {
-            throw new Exception("El archivo no existe.");
+            throw new Exception("No es un archivo.");
         }
 
     }

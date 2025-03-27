@@ -23,29 +23,34 @@ public class Gestor {
             System.out.println("\n\n\n\n\n********** INFORMACION **********\n" + info());
             System.out.println(menu);
             System.out.print("\nSeleccione opción: ");
-            opcion = Integer.parseInt(sc.nextLine());
-            switch (opcion) {
-                case 1 -> directorio();
-                case 2 -> {
-                    try {
-                        original();
-                    } catch (Exception e) {
-                        System.err.println("Error: " + e.getMessage());
+            try {
+                opcion = Integer.parseInt(sc.nextLine());
+                switch (opcion) {
+                    case 1 -> directorio();
+                    case 2 -> {
+                        try {
+                            original();
+                        } catch (Exception e) {
+                            System.err.println("Error: " + e.getMessage());
+                        }
                     }
-                }
-                case 3 -> {
-                    try {
-                        menuConversion();
-                    } catch (Exception e) {
-                        System.err.println("Error: " + e.getMessage());
+                    case 3 -> {
+                        try {
+                            menuConversion();
+                        } catch (Exception e) {
+                            System.err.println("Error: " + e.getMessage());
+                        }
                     }
+                    case 0 -> {
+                        System.out.println("Saliendo");
+                        flag = false;
+                    }
+                    default -> System.out.println("Opción no válida");
                 }
-                case 0 -> {
-                    System.out.println("Saliendo");
-                    flag = false;
-                }
-                default -> System.out.println("Opción no válida");
+            } catch (NumberFormatException e) {
+                System.err.println("Error: no se ha introducido un número entero.");
             }
+
         }
     }
 
@@ -56,30 +61,35 @@ public class Gestor {
                     "\n2. JSON" +
                     "\n3. XML";
             System.out.println(menu);
-            System.out.print("\nSeleccione opción: ");
-            int opcion = Integer.parseInt(sc.nextLine());
-            boolean flag = true;
-            switch (opcion) {
-                case 1 -> conversor.setconversionExtension(FileExtension.CSV);
-                case 2 -> conversor.setconversionExtension(FileExtension.JSON);
-                case 3 -> conversor.setconversionExtension(FileExtension.XML);
-                default -> {
-                    System.out.println("Opción no válida");
-                    conversor.setconversionExtension(FileExtension.OTRO);
-                    flag = false;
+            try {
+                System.out.print("\nSeleccione opción: ");
+                int opcion = Integer.parseInt(sc.nextLine());
+                boolean flag = true;
+                switch (opcion) {
+                    case 1 -> conversor.setconversionExtension(FileExtension.CSV);
+                    case 2 -> conversor.setconversionExtension(FileExtension.JSON);
+                    case 3 -> conversor.setconversionExtension(FileExtension.XML);
+                    default -> {
+                        System.out.println("Opción no válida");
+                        conversor.setconversionExtension(FileExtension.OTRO);
+                        flag = false;
+                    }
                 }
-            }
-            if (flag) {
-                System.out.print("Nombre del archivo destino: ");
-                String name = sc.nextLine();
-                String path = conversor.getDirectory().getPath() + "/" + name + fileExtensionToText();
-                try {
-                    conversor.setConversion(new File(path));
-                    convertir();
-                } catch (Exception e) {
-                    System.err.println("Error: " + e.getMessage());
+                if (flag) {
+                    System.out.print("Nombre del archivo destino: ");
+                    String name = sc.nextLine();
+                    String path = conversor.getDirectory().getPath() + "/" + name + fileExtensionToText();
+                    try {
+                        conversor.setConversion(new File(path));
+                        convertir();
+                    } catch (Exception e) {
+                        System.err.println("Error: ");
+                    }
                 }
+            } catch (NumberFormatException e) {
+                System.err.println("Error: no se ha introducido un número entero.");
             }
+
         } else {
             throw new Exception("Archivo a convertir no seleccionado.");
         }
@@ -114,8 +124,10 @@ public class Gestor {
             try {
                 int numArchivo = Integer.parseInt(sc.nextLine());
                 conversor.setOriginal(conversor.getFiles()[numArchivo]);
+            } catch (NumberFormatException e) {
+                System.err.println("Error: no se ha introducido un número entero.");
             } catch (Exception e) {
-                System.err.println("Error: " + e.getMessage());
+                System.err.println("Error: "+e.getMessage());
             }
         } else {
             throw new Exception("Directorio no seleccionado.");
