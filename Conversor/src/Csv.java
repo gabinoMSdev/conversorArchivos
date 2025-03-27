@@ -47,9 +47,8 @@ public class Csv {
         return contenido;
     }
 
-    public static boolean writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
+    public static void writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
         if (contenido == null || contenido.isEmpty()) {
-            return false;
         }
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
@@ -65,7 +64,6 @@ public class Csv {
                 bw.write(String.join(",", valores) + "\n");
             }
         }
-        return true;
     }
 
     public static void printResults(List<Map<String, String>> contenido, File convertido) {

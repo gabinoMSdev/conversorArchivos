@@ -53,7 +53,7 @@ public class Xml {
         return contenido;
     }
 
-    public static boolean writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
+    public static void writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
             bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
             bw.write("<coches>\n");
@@ -69,9 +69,7 @@ public class Xml {
             bw.write("</coches>\n");
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
-            return false;
         }
-        return true;
     }
 
     public static void main(String[] args) {
