@@ -15,6 +15,14 @@ public class Conversor {
     private List<Map<String,String>> content;
 
     public Conversor() {
+        directory = null;
+        files = null;
+        original = null;
+        conversion = null;
+        originalExtension = FileExtension.OTRO;
+        conversionExtension = FileExtension.OTRO;
+
+
     }
 
     public File getDirectory() {
@@ -25,6 +33,9 @@ public class Conversor {
         if (folder.exists()) {
             if (folder.isDirectory()) {
                 this.directory = folder;
+                setFiles();
+                original = null;
+                content = null;
             } else {
                 throw new Exception("No es un directorio.");
             }
@@ -38,7 +49,7 @@ public class Conversor {
         return this.files;
     }
 
-    public void setFiles() {
+    private void setFiles() {
         this.files = directory.listFiles();
     }
 
@@ -50,6 +61,8 @@ public class Conversor {
         if (original.isFile()) {
             if (Arrays.asList(files).contains(original)) {
                 this.original = original;
+                setOriginalExtension();
+                setContent();
             } else {
                 throw new Exception("Archivo no encontrado en directorio de búsqueda.");
             }
@@ -80,7 +93,7 @@ public class Conversor {
         return this.originalExtension;
     }
 
-    public void setOriginalExtension() throws Exception{
+    private void setOriginalExtension() throws Exception{
         if (original.getPath().endsWith(".csv")) {
             this.originalExtension = FileExtension.CSV;
         }else if (original.getPath().endsWith(".json")) {
@@ -104,7 +117,7 @@ public class Conversor {
         return this.content;
     }
 
-    public void setContent() throws Exception{
+    private void setContent() throws Exception{
         switch (originalExtension) {
             case FileExtension.CSV -> this.content = Csv.extractContent(original);
             case FileExtension.JSON -> this.content = Json.extractContent(original);
