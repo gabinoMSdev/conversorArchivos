@@ -1,0 +1,17 @@
+<coches>
+  <coche>
+    <Marca>Toyota</Marca>
+    <Modelo>Corolla</Modelo>
+    <Año>2020</Año>
+  </coche>
+  <coche>
+    <Año>2019</Año>
+    <Marca>Honda</Marca>
+    <Modelo>Civic</Modelo>
+  </coche>
+  <coche>
+    <Marca>Ford</Marca>
+    <Año>2018</Año>
+    <Modelo>Focus</Modelo>
+  </coche>
+</coches>

@@ -83,7 +83,7 @@ public class Gestor {
                         conversor.setConversion(new File(path));
                         convertir();
                     } catch (Exception e) {
-                        System.err.println("Error: ");
+                        System.err.println("Error: "+e.getMessage());
                     }
                 }
             } catch (NumberFormatException e) {
@@ -123,9 +123,11 @@ public class Gestor {
             System.out.print("\nSelecciona el archivo a convertir: ");
             try {
                 int numArchivo = Integer.parseInt(sc.nextLine());
-                conversor.setOriginal(conversor.getFiles()[numArchivo]);
+                conversor.setOriginal(conversor.getFiles()[numArchivo-1]);
             } catch (NumberFormatException e) {
                 System.err.println("Error: no se ha introducido un número entero.");
+            } catch (ArrayIndexOutOfBoundsException e) {
+                System.err.println("Error: elije un archivo de la lista.");
             } catch (Exception e) {
                 System.err.println("Error: "+e.getMessage());
             }
@@ -156,7 +158,7 @@ public class Gestor {
     public String listarDirectorios() {
         String directorios = "";
         for (int i = 0; i < conversor.getFiles().length; i++) {
-            directorios += "\n" + i + "- " + conversor.getFiles()[i];
+            directorios += "\n" + (i+1) + "- " + conversor.getFiles()[i];
         }
         return directorios;
     }
