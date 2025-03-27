@@ -5,6 +5,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -16,22 +17,21 @@ public class Xml {
         try (BufferedReader br = new BufferedReader(new FileReader(original))) {
             Map<String, String> coche = null;
             String etiqueta = null;
-            //StringBuilder valor = new StringBuilder(); Mas eficiente que el string normal y es buena practica en este caso usarlo
+            // StringBuilder valor = new StringBuilder(); Mas eficiente que el string normal
+            // y es buena practica en este caso usarlo
             String valor = "";
             boolean interior = false;
 
             String linea;
             while ((linea = br.readLine()) != null) {
-                linea = linea.trim(); 
-                
+                linea = linea.trim();
+
                 if (linea.startsWith("<coche>")) {
                     coche = new LinkedHashMap<>();
                     contenido.add(coche);
-                } 
-                else if (linea.startsWith("</coche>")) {
+                } else if (linea.startsWith("</coche>")) {
                     coche = null;
-                }
-                else if (linea.startsWith("<") && !linea.startsWith("</") 
+                } else if (linea.startsWith("<") && !linea.startsWith("</")
                         && !linea.startsWith("<coche") && !linea.startsWith("<coches")) {
                     etiqueta = linea.substring(1, linea.indexOf(">"));
                     int inicio = linea.indexOf(">") + 1;
@@ -41,9 +41,8 @@ public class Xml {
                         coche.put(etiqueta, value.trim());
                     }
                     etiqueta = null;
-                }
-                else if (etiqueta != null && coche != null) {
-                    //valor.append(linea); lo mismo que += pero para StringBuilder
+                } else if (etiqueta != null && coche != null) {
+                    // valor.append(linea); lo mismo que += pero para StringBuilder
                     valor += linea;
                 }
             }
@@ -54,10 +53,16 @@ public class Xml {
     }
 
     public static void writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
+
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
             bw.write("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
-            bw.write("<coches>\n");
-            
+            // introducir titulo
+            String[] directorioPartes = conversion.getPath().split("\\\\");
+            System.out.println(Arrays.toString(directorioPartes));
+            String[] nombrePartes = directorioPartes[directorioPartes.length-1].split("\\.");
+            System.out.println(Arrays.toString(nombrePartes));
+            String titulo = nombrePartes[0];
+            bw.write("<" + titulo + ">\n");
             for (Map<String, String> coche : contenido) {
                 bw.write("  <coche>\n");
                 for (Map.Entry<String, String> entrada : coche.entrySet()) {
@@ -65,8 +70,8 @@ public class Xml {
                 }
                 bw.write("  </coche>\n");
             }
-            
-            bw.write("</coches>\n");
+
+            bw.write("</" + titulo + ">\n");
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
@@ -75,7 +80,6 @@ public class Xml {
     public static void main(String[] args) {
         File original = new File("Docs/coches.xml");
         File conversion = new File("Docs/cochesCopy.xml");
-        
         try {
             List<Map<String, String>> contenido = extractContent(original);
             writeWithFormat(contenido, conversion);
@@ -94,7 +98,7 @@ public class Xml {
                     System.out.println(line);
                 }
             }
-            
+
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }
