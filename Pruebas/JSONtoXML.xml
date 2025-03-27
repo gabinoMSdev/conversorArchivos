@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<JSONtoXML>
+  <coche>
+    <Marca>Toyota</Marca>
+    <Modelo>Corolla</Modelo>
+    <Año>2020</Año>
+  </coche>
+  <coche>
+    <Marca>Honda</Marca>
+    <Modelo>Civic</Modelo>
+    <Año>2019</Año>
+  </coche>
+  <coche>
+    <Modelo>Focus</Modelo>
+    <Marca>Ford</Marca>
+    <Año>2018</Año>
+  </coche>
+</JSONtoXML>
