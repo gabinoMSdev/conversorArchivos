@@ -26,8 +26,20 @@ public class Gestor {
             opcion = Integer.parseInt(sc.nextLine());
             switch (opcion) {
                 case 1 -> directorio();
-                case 2 -> original();
-                case 3 -> menuConversion();
+                case 2 -> {
+                    try {
+                        original();
+                    } catch (Exception e) {
+                        System.err.println("Error: " + e.getMessage());
+                    }
+                }
+                case 3 -> {
+                    try {
+                        menuConversion();
+                    } catch (Exception e) {
+                        System.err.println("Error: " + e.getMessage());
+                    }
+                }
                 case 0 -> {
                     System.out.println("Saliendo");
                     flag = false;
@@ -37,7 +49,7 @@ public class Gestor {
         }
     }
 
-    public void menuConversion() {
+    public void menuConversion() throws Exception {
         if (conversor.getOriginal() != null) {
             String menu = "\n********** FORMATO **********" +
                     "\n1. CSV" +
@@ -68,8 +80,8 @@ public class Gestor {
                     System.err.println("Error: " + e.getMessage());
                 }
             }
-        }else{
-            System.out.println("\nSelecciona primero archivo a convertir.");
+        } else {
+            throw new Exception("Archivo a convertir no seleccionado.");
         }
 
     }
@@ -96,14 +108,19 @@ public class Gestor {
         }
     }
 
-    public void original() {
-        System.out.print("\nSelecciona el archivo a convertir: ");
-        try {
-            int numArchivo = Integer.parseInt(sc.nextLine());
-            conversor.setOriginal(conversor.getFiles()[numArchivo]);
-        } catch (Exception e) {
-            System.err.println("Error: " + e.getMessage());
+    public void original() throws Exception {
+        if (conversor.getDirectory() != null) {
+            System.out.print("\nSelecciona el archivo a convertir: ");
+            try {
+                int numArchivo = Integer.parseInt(sc.nextLine());
+                conversor.setOriginal(conversor.getFiles()[numArchivo]);
+            } catch (Exception e) {
+                System.err.println("Error: " + e.getMessage());
+            }
+        } else {
+            throw new Exception("Directorio no seleccionado.");
         }
+
     }
 
     public String info() {
