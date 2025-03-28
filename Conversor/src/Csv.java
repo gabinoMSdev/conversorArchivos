@@ -9,11 +9,50 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <h1>Procesador de Archivos CSV</h1>
+ * 
+ * <p>
+ * Esta clase proporciona métodos para trabajar con archivos CSV, incluyendo
+ * lectura, escritura
+ * y visualización de dato
+ * </p>
+ * 
+ * <h2>Características principales</h2>
+ * <ul>
+ * <li>Lectura de archivos CSV</li>
+ * <li>Escritura de archivos CSV</li>
+ * <li>Visualización de datos</li>
+ * </ul>
+ * 
+ * @author Manu
+ * @version 1.0
+ */
 public class Csv {
+    /**
+     * <h3>Divide una línea CSV</h3>
+     * 
+     * <p>
+     * Método que separa los valores de una línea CSV
+     * </p>
+     * 
+     * @param linea
+     * @return
+     */
     private static String[] separador(String linea) {
         return linea.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)");
     }
 
+    /**
+     * <h3>Extrae contenido de un archivo CSV</h3>
+     * <p>
+     * Lee un archivo CSV
+     * </p>
+     * 
+     * @param original
+     * @return
+     * @throws IOException
+     */
     public static List<Map<String, String>> extractContent(File original) throws IOException {
 
         List<Map<String, String>> contenido = new ArrayList<>();
@@ -47,6 +86,16 @@ public class Csv {
         return contenido;
     }
 
+    /**
+     * <h3>Escribe datos en formato CSV</h3>
+     * <p>
+     * Genera un archivo CSV a partir de una lista de mapas.
+     * </p>
+     * 
+     * @param contenido
+     * @param conversion
+     * @throws IOException
+     */
     public static void writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
         if (contenido == null || contenido.isEmpty()) {
         }
@@ -66,6 +115,15 @@ public class Csv {
         }
     }
 
+    /**
+     * <h3>Muestra resultados en consola</h3>
+     * <p>
+     * Imprime el contenido procesado
+     * </p>
+     * 
+     * @param contenido
+     * @param convertido
+     */
     public static void printResults(List<Map<String, String>> contenido, File convertido) {
         System.out.println("Contenido extraído:");
         for (int i = 0; i < contenido.size(); i++) {
@@ -84,10 +142,15 @@ public class Csv {
         }
     }
 
+    /**
+     * <h2>Main de pruebas para la clase CSV</h2>
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         File original = new File("Docs/coches.csv");
         File conversion = new File("Docs/cochesCopy.csv");
-        
+
         try {
             List<Map<String, String>> contenido = extractContent(original);
             writeWithFormat(contenido, conversion);
@@ -106,7 +169,7 @@ public class Csv {
                     System.out.println(line);
                 }
             }
-            
+
         } catch (Exception e) {
             System.err.println("Error: " + e.getMessage());
         }

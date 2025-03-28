@@ -3,14 +3,55 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Scanner;
 
+/**
+ * <h1>Clase Gestor</h1>
+ * 
+ * <p>
+ * Interfaz de usuario para el sistema de conversión de archivos.
+ * </p>
+ * <p>
+ * Proporciona un menú interactivo para seleccionar archivos y formatos de
+ * conversión.
+ * </p>
+ * 
+ * <h2>Responsabilidades principales</h2>
+ * <ul>
+ * <li>Interacción con el usuario</li>
+ * <li>Proceso de conversión</li>
+ * <li>Visualización de información del estado</li>
+ * <li>Manejo de errores y validaciones</li>
+ * </ul>
+ */
 public class Gestor {
     private static final Scanner sc = new Scanner(System.in);
     private Conversor conversor;
 
+    /**
+     * <h3>Constructor</h3>
+     * <p>
+     * Inicializa un nuevo Gestor con una instancia de Conversor.
+     * </p>
+     */
     public Gestor() {
         this.conversor = new Conversor();
     }
 
+    /**
+     * <h3>Menú principal</h3>
+     * <p>
+     * Muestra el menú interactivo y gestiona las opciones seleccionadas por el
+     * usuario.
+     * </p>
+     * <p>
+     * Opciones disponibles:
+     * </p>
+     * <ol>
+     * <li>Seleccionar carpeta</li>
+     * <li>Seleccionar archivo</li>
+     * <li>Convertir archivo</li>
+     * <li>Salir</li>
+     * </ol>
+     */
     public void menu() {
         String menu = "\n********** CONVERSOR **********" +
                 "\n1. Seleccionar carpeta." +
@@ -54,6 +95,14 @@ public class Gestor {
         }
     }
 
+    /**
+     * <h3>Menú de conversión</h3>
+     * <p>
+     * Muestra las opciones de formato de conversión y gestiona el proceso.
+     * </p>
+     * 
+     * @throws Exception
+     */
     public void menuConversion() throws Exception {
         if (conversor.getOriginal() != null) {
             String menu = "\n********** FORMATO **********" +
@@ -83,7 +132,7 @@ public class Gestor {
                         conversor.setConversion(new File(path));
                         convertir();
                     } catch (Exception e) {
-                        System.err.println("Error: "+e.getMessage());
+                        System.err.println("Error: " + e.getMessage());
                     }
                 }
             } catch (NumberFormatException e) {
@@ -96,6 +145,11 @@ public class Gestor {
 
     }
 
+    /**
+     * <h3>Obtiene la extensión del archivo de conversión</h3>
+     * 
+     * @return
+     */
     public String fileExtensionToText() {
         if (conversor.getConversionExtension() == FileExtension.CSV) {
             return ".csv";
@@ -108,6 +162,12 @@ public class Gestor {
         }
     }
 
+    /**
+     * <h3>Seleccion de directorio</h3>
+     * <p>
+     * Permite al usuario especificar el directorio de trabajo.
+     * </p>
+     */
     public void directorio() {
         System.out.print("\nDirectorio: ");
         String directorioPath = sc.nextLine();
@@ -118,18 +178,27 @@ public class Gestor {
         }
     }
 
+    /**
+     * <h3>Seleccion de archivo original</h3>
+     * <p>
+     * Permite al usuario seleccionar un archivo del directorio actual para
+     * conversión.
+     * </p>
+     * 
+     * @throws Exception
+     */
     public void original() throws Exception {
         if (conversor.getDirectory() != null) {
             System.out.print("\nSelecciona el archivo a convertir: ");
             try {
                 int numArchivo = Integer.parseInt(sc.nextLine());
-                conversor.setOriginal(conversor.getFiles()[numArchivo-1]);
+                conversor.setOriginal(conversor.getFiles()[numArchivo - 1]);
             } catch (NumberFormatException e) {
                 System.err.println("Error: no se ha introducido un número entero.");
             } catch (ArrayIndexOutOfBoundsException e) {
                 System.err.println("Error: elije un archivo de la lista.");
             } catch (Exception e) {
-                System.err.println("Error: "+e.getMessage());
+                System.err.println("Error: " + e.getMessage());
             }
         } else {
             throw new Exception("Directorio no seleccionado.");
@@ -137,6 +206,14 @@ public class Gestor {
 
     }
 
+    /**
+     * <h3>Información del estado</h3>
+     * <p>
+     * Genera un resumen del estado actual del conversor.
+     * </p>
+     * 
+     * @return
+     */
     public String info() {
         String info = "";
         if (conversor.getDirectory() != null) {
@@ -155,14 +232,30 @@ public class Gestor {
         return info;
     }
 
+    /**
+     * <h3>Listado de directorios</h3>
+     * <p>
+     * Genera una lista numerada de los archivos en el directorio actual.
+     * </p>
+     * 
+     * @return
+     */
     public String listarDirectorios() {
         String directorios = "";
         for (int i = 0; i < conversor.getFiles().length; i++) {
-            directorios += "\n" + (i+1) + "- " + conversor.getFiles()[i];
+            directorios += "\n" + (i + 1) + "- " + conversor.getFiles()[i];
         }
         return directorios;
     }
 
+    /**
+     * <h3>Ejecución de la conversión</h3>
+     * <p>
+     * Realiza la conversión del archivo
+     * </p>
+     * 
+     * @throws IOException
+     */
     public void convertir() throws IOException {
         try {
             if (conversor.getDirectory() != null && conversor.getOriginal() != null
