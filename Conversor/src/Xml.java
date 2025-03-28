@@ -10,15 +10,44 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * <h1>Procesador de Archivos XML</h1>
+ * 
+ * <p>
+ * Esta clase proporciona métodos para extraer y escribir datos en formato XML.
+ * </p>
+ *
+ * <h2>Métodos Principales</h2>
+ * <ul>
+ * <li>extractContent(File) - Extrae datos de un archivo XML</li>
+ * <li>writeWithFormat(List, File) - Escribe datos en formato XML</li>
+ * </ul>
+ * 
+ * @author Manu
+ * @version 1.0
+ */
 public class Xml {
-
+    /**
+     * <h3>Extrae contenido de un archivo XML</h3>
+     * 
+     * <p>
+     * Lee un archivo XML y extrae los datos, organizándolos en una
+     * estructura de Lista de Mapas donde cada mapa representa las propiedades.
+     * </p>
+     * 
+     * @see LinkedHashMap
+     * @see ArrayList
+     * @see BufferedReader
+     * @author Manu
+     * @param original
+     * @return
+     * @throws IOException
+     */
     public static List<Map<String, String>> extractContent(File original) throws IOException {
         List<Map<String, String>> contenido = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(original))) {
             Map<String, String> coche = null;
             String etiqueta = null;
-            // StringBuilder valor = new StringBuilder(); Mas eficiente que el string normal
-            // y es buena practica en este caso usarlo
             String valor = "";
             boolean interior = false;
 
@@ -42,7 +71,6 @@ public class Xml {
                     }
                     etiqueta = null;
                 } else if (etiqueta != null && coche != null) {
-                    // valor.append(linea); lo mismo que += pero para StringBuilder
                     valor += linea;
                 }
             }
@@ -52,6 +80,22 @@ public class Xml {
         return contenido;
     }
 
+    /**
+     * <h3>Escribe datos en formato XML</h3>
+     * 
+     * <p>
+     * Genera un archivo XML bien formado a partir de los datos proporcionados.
+     * El nombre del elemento raíz sale del nombre del archivo de destino.
+     * </p>
+     *
+     * @param contenido  Lista de mapas con los datos a escribir
+     * @param conversion Archivo de destino donde se guardará el XML
+     * @throws IOException Si ocurre un error al escribir el archivo
+     * 
+     * @see BufferedWriter
+     * @see Map
+     * @see List
+     */
     public static void writeWithFormat(List<Map<String, String>> contenido, File conversion) throws IOException {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
@@ -59,7 +103,7 @@ public class Xml {
             // introducir titulo
             String[] directorioPartes = conversion.getPath().split("\\\\");
             System.out.println(Arrays.toString(directorioPartes));
-            String[] nombrePartes = directorioPartes[directorioPartes.length-1].split("\\.");
+            String[] nombrePartes = directorioPartes[directorioPartes.length - 1].split("\\.");
             System.out.println(Arrays.toString(nombrePartes));
             String titulo = nombrePartes[0];
             bw.write("<" + titulo + ">\n");
@@ -77,6 +121,11 @@ public class Xml {
         }
     }
 
+    /**
+     * <h2>Main de pruebas para la clase Xml</h2>
+     * 
+     * @param args
+     */
     public static void main(String[] args) {
         File original = new File("Docs/coches.xml");
         File conversion = new File("Docs/cochesCopy.xml");

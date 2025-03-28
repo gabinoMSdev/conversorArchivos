@@ -6,11 +6,40 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * <h1>Procesador de Archivos JSON</h1>
+ * 
+ * <p>
+ * Esta clase proporciona métodos para extraer y escribir datos en formato JSON.
+ * </p>
+ *
+ * <h2>Métodos Principales</h2>
+ * <ul>
+ * <li>extractContent(File) - Extrae datos de un archivo JSON</li>
+ * <li>writeWithFormat(List, File) - Escribe datos en formato JSON</li>
+ * </ul>
+ * 
+ * @author gabino
+ * @version 1.0
+ */
 public class Json {
-
+    /**
+     * <h3>Extrae contenido de un archivo JSON</h3>
+     * 
+     * <p>
+     * Lee un archivo JSON y extrae los datos, organizándolos en una
+     * estructura de Lista de Mapas donde cada mapa representa las propiedades.
+     * </p>
+     * @see LinkedHashMap
+     * @see ArrayList
+     * @see BufferedReader
+     * @param original
+     * @return
+     * @throws IOException
+     */
     public static List<Map<String, String>> extractContent(File original) throws IOException {
         String line = "";
         List<Map<String, String>> content = new ArrayList<>();
@@ -34,7 +63,22 @@ public class Json {
         }
         return content;
     }
-
+    /**
+     * <h3>Escribe datos en formato JSON</h3>
+     * 
+     * <p>
+     * Genera un archivo JSON bien formado a partir de los datos proporcionados.
+     * El nombre del elemento raíz sale del nombre del archivo de destino.
+     * </p>
+     *
+     * @param contenido  Lista de mapas con los datos a escribir
+     * @param conversion Archivo de destino donde se guardará el JSON.
+     * @throws IOException Si ocurre un error al escribir el archivo
+     * 
+     * @see BufferedWriter
+     * @see Map
+     * @see List
+     */
     public static void writeWithFormat(List<Map<String, String>> content, File conversion) throws IOException {
 
         try (BufferedWriter bw = new BufferedWriter(new FileWriter(conversion))) {
@@ -68,7 +112,10 @@ public class Json {
             System.err.println("Error: " + e.getMessage());
         }
     }
-
+    /**
+     * <h2>Main de pruebas para la clase JSON</h2>
+     * @param args
+     */
     public static void main(String[] args) {
         File original = new File("Docs/coches.json");
         File conversion = new File("Docs/cochesCopy.json");
