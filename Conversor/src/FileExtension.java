@@ -15,6 +15,7 @@
  * 
  * @see Conversor
  * @see Gestor
+ * @author Gabino
  */
 public enum FileExtension {
     CSV, JSON, XML, OTRO

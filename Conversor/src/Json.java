@@ -22,7 +22,7 @@ import java.util.Map;
  * <li>writeWithFormat(List, File) - Escribe datos en formato JSON</li>
  * </ul>
  * 
- * @author gabino
+ * @author Gabino
  * @version 1.0
  */
 public class Json {

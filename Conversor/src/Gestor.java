@@ -21,6 +21,7 @@ import java.util.Scanner;
  * <li>Visualización de información del estado</li>
  * <li>Manejo de errores y validaciones</li>
  * </ul>
+ * @author Gabino y Manu
  */
 public class Gestor {
     private static final Scanner sc = new Scanner(System.in);
