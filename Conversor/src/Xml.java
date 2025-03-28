@@ -23,7 +23,7 @@ import java.util.Map;
  * <li>writeWithFormat(List, File) - Escribe datos en formato XML</li>
  * </ul>
  * 
- * @author Manu
+ * @author Gabino y Manu
  * @version 1.0
  */
 public class Xml {

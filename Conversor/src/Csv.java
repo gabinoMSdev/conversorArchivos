@@ -25,7 +25,7 @@ import java.util.Map;
  * <li>Visualización de datos</li>
  * </ul>
  * 
- * @author Manu
+ * @author Gabino y Manu
  * @version 1.0
  */
 public class Csv {

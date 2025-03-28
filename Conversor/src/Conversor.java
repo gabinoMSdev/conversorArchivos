@@ -23,7 +23,7 @@ import java.util.Map;
  * @see Csv
  * @see Json
  * @see Xml
- * @author Gabino
+ * @author Gabino y Manu
  */
 public class Conversor {
     private File directory;
